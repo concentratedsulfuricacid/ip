@@ -65,61 +65,110 @@ public class Tom {
         }
     }
 
-    private static void parser(String message) {
+    private static void parser(String message) throws TomException {
         if (message.startsWith("todo")) {
-            String description = message.substring(5);
+            String[] parts = message.split(" ", 2);
+            String description = parts.length > 1 ? parts[1].trim() : "";
+            if (description.isEmpty()) {
+                throw new InvalidCommandException("The description of a todo cannot be empty.");
+            }
             Todo todo = new Todo(description);
             add(todo);
+            
         } else if (message.startsWith("deadline")) {
-            String[] parts = message.substring(9).split(" /by ");
-            String description = parts[0];
-            String by = parts[1];
+            if (!message.contains(" /by ")) {
+                throw new InvalidCommandException("The deadline command must include a /by clause.");
+            }
+            String[] parts = message.substring(8).split(" /by ");
+            String description = parts[0].trim();
+            String by = parts[1].trim();
+            if (description.isEmpty() || by.isEmpty()) {
+                throw new InvalidCommandException("The description of a deadline cannot be empty.");
+            }
             Deadline deadline = new Deadline(description, by);
             add(deadline);
+
         } else if (message.startsWith("event")) {
-            String[] parts = message.substring(6).split(" /from | /to ");
-            String description = parts[0];
-            String from = parts[1];
-            String to = parts[2];
+            String[] parts = message.substring(5).split(" /from | /to ");
+            if (parts.length < 3) {
+                throw new InvalidCommandException("The event command must include /from and /to clauses.");
+            }
+            String description = parts[0].trim();
+            String from = parts[1].trim();
+            String to = parts[2].trim();
             Event event = new Event(description, from, to);
             add(event);
         } else {
-            Task task = new Task(message);
-            add(task);    
+            throw new InvalidCommandException("Invalid command.");
         }
     }
 
 
     public static void main(String[] args) {
-        String greeting = "Hello! I'm Tom! \n"
-                        + "What can I do for you?";
-        String exit = "Bye. Hope to see you again soon!";
+    String greeting = "Hello! I'm Tom! \n" + "What can I do for you?";
+    String exit = "Bye. Hope to see you again soon!";
 
-        
-        System.out.println(border);
-        System.out.println(greeting);
-        System.out.println(border);
+    System.out.println(border);
+    System.out.println(greeting);
+    System.out.println(border);
 
-        // Conversation logic 
-        String message = scanner.nextLine();
-        while (!message.equals("bye")) { 
+    String message = scanner.nextLine();
+    while (!message.equals("bye")) {
+        try {
             if (message.equals("list")) {
                 list_items();
-            } else if (message.startsWith("mark")){
-                int taskNumber = Integer.parseInt(message.split(" ")[1]);
-                markDone(taskNumber);
-            } else if (message.startsWith("unmark")){
-                int taskNumber = Integer.parseInt(message.split(" ")[1]);
-                markUndone(taskNumber);
+            } else if (message.startsWith("mark")) {
+                String[] parts = message.trim().split("\\s+");
+                if (parts.length < 2) {
+                    System.out.println(border);
+                    System.out.println("OOPS!!! Please enter a valid task number.");
+                    System.out.println(border);
+                    message = scanner.nextLine();
+                    continue;
+                }
+                try {
+                    int taskNumber = Integer.parseInt(parts[1]);
+                    markDone(taskNumber);
+                } catch (NumberFormatException e) {
+                    System.out.println(border);
+                    System.out.println("OOPS!!! Please enter a valid task number.");
+                    System.out.println(border);
+                }
+            } else if (message.startsWith("unmark")) {
+                String[] parts = message.trim().split("\\s+");
+                if (parts.length < 2) {
+                    System.out.println(border);
+                    System.out.println("OOPS!!! Please enter a valid task number.");
+                    System.out.println(border);
+                    message = scanner.nextLine();
+                    continue;
+                }
+                try {
+                    int taskNumber = Integer.parseInt(parts[1]);
+                    markUndone(taskNumber);
+                } catch (NumberFormatException e) {
+                    System.out.println(border);
+                    System.out.println("OOPS!!! Please enter a valid task number.");
+                    System.out.println(border);
+                }
             } else {
-                parser(message);
+                parser(message); 
             }
-            message = scanner.nextLine();
+        } catch (TomException e) {
+            System.out.println(border);
+            System.out.println("OOPS!!! " + e.getMessage());
+            System.out.println(border);
+        } catch (NumberFormatException e) {
+            System.out.println(border);
+            System.out.println("OOPS!!! Please enter a valid task number.");
+            System.out.println(border);
         }
-        
-        System.out.println(border);
-        System.out.println(exit);
-        System.out.println(border);
 
+        message = scanner.nextLine(); // important: always read next input even after errors
     }
+
+    System.out.println(border);
+    System.out.println(exit);
+    System.out.println(border);
+}
 }
