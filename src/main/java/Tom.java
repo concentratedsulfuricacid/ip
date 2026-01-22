@@ -1,4 +1,6 @@
 import java.util.Scanner;
+import java.util.List;
+import java.util.ArrayList;
 public class Tom {
     static Scanner scanner = new Scanner(System.in);
     static String border = "____________________________________________________________";
@@ -8,40 +10,34 @@ public class Tom {
         System.out.println(input);
         System.out.println(border);
     }
-    static Task[] items = new Task[100];
+    static List<Task> items = new ArrayList<>();
 
     public static void add(Task task) {
-        for (int i = 0; i < Tom.items.length; i++) {
-            if (Tom.items[i] == null) {
-                Tom.items[i] = task;
-
-                System.out.println(border);
-                System.out.println("Got it. I've added this task: \n " + task);
-                System.out.println("Now you have " + (i + 1) + " tasks in the list.");
-                System.out.println(border);
-                break;
-            }
-        }
+        items.add(task);
+        System.out.println(border);
+        System.out.println("Got it. I've added this task: \n " + task);
+        System.out.println("Now you have " + (items.size()) + " tasks in the list.");
+        System.out.println(border);
+                
+            
     }
 
     public static void list_items() {
         System.out.println(border);
         System.out.println("Here are the tasks in your list:");
-        for (int i = 0; i < items.length; i++) {
-            if (items[i] != null) {
-                System.out.println((i + 1) + ". " + items[i]);
+        for (int i = 0; i < items.size(); i++) {
+            System.out.println((i + 1) + ". " + items.get(i));
             }
-        }
         System.out.println(border);
     } 
 
     public static void markDone(int taskNumber) {
         int index = taskNumber - 1;
-        if (index >= 0 && index < items.length && items[index] != null) {
-            items[index].markAsDone();
+        if (index >= 0 && index < items.size() && items.get(index) != null) {
+            items.get(index).markAsDone();
             System.out.println(border);
             System.out.println("Nice! I've marked this task as done:");
-            System.out.println("  " + items[index]);
+            System.out.println("  " + items.get(index));
             System.out.println(border);
         } else {
             System.out.println(border);
@@ -52,11 +48,11 @@ public class Tom {
     
     public static void markUndone(int taskNumber) {
         int index = taskNumber - 1;
-        if (index >= 0 && index < items.length && items[index] != null) {
-            items[index].unmarkAsDone();
+        if (index >= 0 && index < items.size() && items.get(index) != null) {
+            items.get(index).unmarkAsDone();
             System.out.println(border);
             System.out.println("Nice! I've marked this task as undone:");
-            System.out.println("  " + items[index]);
+            System.out.println("  " + items.get(index));
             System.out.println(border);
         } else {
             System.out.println(border);
@@ -103,6 +99,22 @@ public class Tom {
         }
     }
 
+    public static void delete(int taskNumber) {
+        int index = taskNumber - 1;
+        if (index >= 0 && index < items.size() && items.get(index) != null) {
+            Task removedTask = items.remove(index);
+            System.out.println(border);
+            System.out.println("Noted. I've removed this task:");
+            System.out.println("  " + removedTask);
+            System.out.println("Now you have " + items.size() + " tasks in the list.");
+            System.out.println(border);
+        } else {
+            System.out.println(border);
+            System.out.println("Invalid task number.");
+            System.out.println(border); 
+        }
+    }
+
 
     public static void main(String[] args) {
     String greeting = "Hello! I'm Tom! \n" + "What can I do for you?";
@@ -146,6 +158,23 @@ public class Tom {
                 try {
                     int taskNumber = Integer.parseInt(parts[1]);
                     markUndone(taskNumber);
+                } catch (NumberFormatException e) {
+                    System.out.println(border);
+                    System.out.println("OOPS!!! Please enter a valid task number.");
+                    System.out.println(border);
+                }
+            } else if (message.startsWith("delete")) {
+                String[] parts = message.trim().split("\\s+");
+                if (parts.length < 2) {
+                    System.out.println(border);
+                    System.out.println("OOPS!!! Please enter a valid task number.");
+                    System.out.println(border);
+                    message = scanner.nextLine();
+                    continue;
+                }
+                try {
+                    int taskNumber = Integer.parseInt(parts[1]);
+                    delete(taskNumber);
                 } catch (NumberFormatException e) {
                     System.out.println(border);
                     System.out.println("OOPS!!! Please enter a valid task number.");
