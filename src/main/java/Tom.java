@@ -10,13 +10,14 @@ public class Tom {
     }
     static Task[] items = new Task[100];
 
-    public static void add(String items) {
+    public static void add(Task task) {
         for (int i = 0; i < Tom.items.length; i++) {
             if (Tom.items[i] == null) {
-                Tom.items[i] = new Task(items);
+                Tom.items[i] = task;
 
                 System.out.println(border);
-                System.out.println("added: " + items);
+                System.out.println("Got it. I've added this task: \n " + task);
+                System.out.println("Now you have " + (i + 1) + " tasks in the list.");
                 System.out.println(border);
                 break;
             }
@@ -64,6 +65,30 @@ public class Tom {
         }
     }
 
+    private static void parser(String message) {
+        if (message.startsWith("todo")) {
+            String description = message.substring(5);
+            Todo todo = new Todo(description);
+            add(todo);
+        } else if (message.startsWith("deadline")) {
+            String[] parts = message.substring(9).split(" /by ");
+            String description = parts[0];
+            String by = parts[1];
+            Deadline deadline = new Deadline(description, by);
+            add(deadline);
+        } else if (message.startsWith("event")) {
+            String[] parts = message.substring(6).split(" /from | /to ");
+            String description = parts[0];
+            String from = parts[1];
+            String to = parts[2];
+            Event event = new Event(description, from, to);
+            add(event);
+        } else {
+            Task task = new Task(message);
+            add(task);    
+        }
+    }
+
 
     public static void main(String[] args) {
         String greeting = "Hello! I'm Tom! \n"
@@ -87,7 +112,7 @@ public class Tom {
                 int taskNumber = Integer.parseInt(message.split(" ")[1]);
                 markUndone(taskNumber);
             } else {
-                add(message);
+                parser(message);
             }
             message = scanner.nextLine();
         }
