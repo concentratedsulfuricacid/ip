@@ -1,3 +1,2 @@
 T | 0 | sleep
-D | 0 | sex | sunday
 T | 0 | sleep
