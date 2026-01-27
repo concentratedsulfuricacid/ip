@@ -1,6 +1,7 @@
 import java.util.Scanner;
 import java.util.List;
 import java.util.ArrayList;
+
 public class Tom {
     static Scanner scanner = new Scanner(System.in);
     static String border = "____________________________________________________________";
@@ -41,10 +42,24 @@ public class Tom {
         System.out.println(input);
         System.out.println(border);
     }
+    
     static List<Task> items = new ArrayList<>();
+
+    public static void loadTasks() {
+        try {
+            List<Task> loadedTasks = Storage.load();
+            for (Task task : loadedTasks) {
+                items.add(task);
+            }
+        } catch (TomException e) {
+            System.out.println("Error loading tasks: " + e.getMessage());
+        }
+    }
+    
 
     public static void add(Task task) {
         items.add(task);
+        Storage.updateStorage(items);
         System.out.println(border);
         System.out.println("Got it. I've added this task: \n " + task);
         System.out.println("Now you have " + (items.size()) + " tasks in the list.");
@@ -66,6 +81,7 @@ public class Tom {
         int index = taskNumber - 1;
         if (index >= 0 && index < items.size() && items.get(index) != null) {
             items.get(index).markAsDone();
+            Storage.updateStorage(items);
             System.out.println(border);
             System.out.println("Nice! I've marked this task as done:");
             System.out.println("  " + items.get(index));
@@ -81,6 +97,7 @@ public class Tom {
         int index = taskNumber - 1;
         if (index >= 0 && index < items.size() && items.get(index) != null) {
             items.get(index).unmarkAsDone();
+            Storage.updateStorage(items);
             System.out.println(border);
             System.out.println("Nice! I've marked this task as undone:");
             System.out.println("  " + items.get(index));
@@ -134,6 +151,7 @@ public class Tom {
         int index = taskNumber - 1;
         if (index >= 0 && index < items.size() && items.get(index) != null) {
             Task removedTask = items.remove(index);
+            Storage.updateStorage(items);
             System.out.println(border);
             System.out.println("Noted. I've removed this task:");
             System.out.println("  " + removedTask);
@@ -147,6 +165,8 @@ public class Tom {
     }
 
 
+
+
     public static void main(String[] args) {
     String greeting = "Hello! I'm Tom! \n" + "What can I do for you?";
     String exit = "Bye. Hope to see you again soon!";
@@ -155,42 +175,44 @@ public class Tom {
     System.out.println(greeting);
     System.out.println(border);
 
-   String message = scanner.nextLine();
+    loadTasks();
 
-while (true) {
-    message = message.trim();
+    String message = scanner.nextLine();
 
-    try {
-        CommandType type = getCommandType(message);
+    while (true) {
+        message = message.trim();
 
-        switch (type) {
-            case BYE -> {
-                break; // breaks out of switch, but we want to exit loop
+        try {
+            CommandType type = getCommandType(message);
+
+            switch (type) {
+                case BYE -> {
+                    break; // breaks out of switch, but we want to exit loop
+                }
+                case LIST -> list_items();
+                case MARK -> markDone(parseTaskNumber(message));
+                case UNMARK -> markUndone(parseTaskNumber(message));
+                case DELETE -> delete(parseTaskNumber(message));
+                case TODO, DEADLINE, EVENT -> parser(message);
+                case INVALID -> throw new InvalidCommandException("Invalid command.");
             }
-            case LIST -> list_items();
-            case MARK -> markDone(parseTaskNumber(message));
-            case UNMARK -> markUndone(parseTaskNumber(message));
-            case DELETE -> delete(parseTaskNumber(message));
-            case TODO, DEADLINE, EVENT -> parser(message);
-            case INVALID -> throw new InvalidCommandException("Invalid command.");
+
+            if (type == CommandType.BYE) {
+                break; // exit the while loop
+            }
+
+        } catch (TomException e) {
+            System.out.println(border);
+            System.out.println("OOPS!!! " + e.getMessage());
+            System.out.println(border);
         }
 
-        if (type == CommandType.BYE) {
-            break; // exit the while loop
+
+            message = scanner.nextLine(); 
         }
 
-    } catch (TomException e) {
         System.out.println(border);
-        System.out.println("OOPS!!! " + e.getMessage());
+        System.out.println(exit);
         System.out.println(border);
     }
-
-
-        message = scanner.nextLine(); // important: always read next input even after errors
-    }
-
-    System.out.println(border);
-    System.out.println(exit);
-    System.out.println(border);
-}
 }
