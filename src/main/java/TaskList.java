@@ -8,6 +8,10 @@ public class TaskList {
         this.items = tasks;
     }
 
+    public int size() {
+        return items.size();
+    }
+
     public void add(Task task) {
         items.add(task);
         Storage.updateStorage(items);
