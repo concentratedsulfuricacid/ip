@@ -25,15 +25,9 @@ public class Tom {
         while(!isExit){
             try {
                 String message = scanner.nextLine().trim();
-                ui.border();
                 Command c = Parser.parse(message);
                 c.execute(items, ui, storage);
                 isExit = c.isExit();
-
-                if (isExit) {
-                    ui.showExitMessage();
-                }
-
             } catch (TomException e) {
                 System.out.println(e.getMessage());
 
@@ -42,11 +36,6 @@ public class Tom {
             }
         }
     }
-
-    
-
-
-
 
     public static void main(String[] args) {
         Tom tom = new Tom("data/tasks.txt");

@@ -20,7 +20,6 @@ public class Parser {
             }
             Todo todo = new Todo(description);
             return new AddCommand(todo);
-            // items.add(todo);
     }
 
     public static Command parseDeadline(String message) throws TomException {
@@ -35,7 +34,6 @@ public class Parser {
         }
         Deadline deadline = new Deadline(description, by);
         return new AddCommand(deadline);
-        // items.add(deadline);
     }
 
     public static Command parseEvent(String message) throws TomException {
@@ -48,7 +46,6 @@ public class Parser {
         String to = parts[2].trim();
         Event event = new Event(description, from, to);
         return new AddCommand(event);
-        // items.add(event);
     }
 
     private static int parseTaskNumber(String message) throws TomException {
@@ -110,6 +107,8 @@ public class Parser {
                 return parseDeleteCommand(message);
             case LIST:
                 return parseListCommand();
+            case BYE:
+                return parseByeCommand();
             default:
                 throw new InvalidCommandException("Invalid command.");
         }
