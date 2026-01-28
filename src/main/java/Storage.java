@@ -4,10 +4,18 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 public class Storage {
-    
-    public static final Path FILE_PATH = Paths.get("data", "tasks.txt");
+    private Path FILE_PATH;
+    // private static Path FILE_PATH = Paths.get("data", "tasks.txt");
 
-    public static void ensureStorageExists() throws IOException {
+    public Storage() {
+        this.FILE_PATH = Paths.get("data", "tasks.txt");
+    }
+
+    public Storage(String filepath) {
+        this.FILE_PATH = Paths.get(filepath);
+    }
+
+    public  void ensureStorageExists() throws IOException {
         Files.createDirectories(FILE_PATH.getParent());
         if (!Files.exists(FILE_PATH)) {
             Files.createFile(FILE_PATH);
@@ -19,31 +27,6 @@ public class Storage {
         Path path = Paths.get(userDir, "data", "tasks.txt");
         // System.out.println("Storage path: " + path);
         return path;
-    }
-
-    public static void createStorageDirectory() {
-        try {
-            Path storagePath = getStoragePath().getParent();
-            java.nio.file.Files.createDirectories(storagePath);
-            // System.out.println("Storage directory created at: " + storagePath);
-        } catch (java.io.IOException e) {
-            System.out.println("Error creating storage directory: " + e.getMessage());
-        }
-    }
-
-    public static void createEmptytxt() { // creates empty tasks.txt if it doesn't exist
-        try {
-            Path filePath = FILE_PATH;
-            if (!java.nio.file.Files.exists(filePath)) {
-                ensureStorageExists();
-                java.nio.file.Files.createFile(filePath);
-                // System.out.println("Created empty tasks.txt at: " + filePath);
-            } else {
-                // System.out.println("tasks.txt already exists at: " + filePath);
-            }
-        } catch (java.io.IOException e) {
-            System.out.println("Error creating tasks.txt: " + e.getMessage());
-        }
     }
 
     public static String encode(Task task) throws TomException {
@@ -113,7 +96,7 @@ public class Storage {
         }
     }
 
-    public static List<Task> load() throws TomException {
+    public  List<Task> load() throws TomException {
         List<Task> tasks = new java.util.ArrayList<>();
         try {
             ensureStorageExists();
@@ -137,7 +120,6 @@ public class Storage {
 
     public static void main(String[] args) {
         getStoragePath();
-        createEmptytxt();
         getStoragePath();
     }
 }
