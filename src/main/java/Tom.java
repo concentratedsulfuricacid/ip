@@ -112,7 +112,6 @@ public class Tom {
 
     public static void main(String[] args) {
         Tom tom = new Tom("data/tasks.txt");
-        tom.loadTasks();
         tom.ui.showWelcomeMessage();
 
         String message = scanner.nextLine();
