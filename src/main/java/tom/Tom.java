@@ -1,4 +1,11 @@
+package tom;
 import java.util.Scanner;
+
+import tom.command.Command;
+import tom.storage.Storage;
+import tom.task.TaskList;
+import tom.ui.Ui;
+
 import java.util.ArrayList;
 
 public class Tom {

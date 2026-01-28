@@ -1,3 +1,9 @@
+package tom.command;
+import tom.storage.Storage;
+import tom.task.Task;
+import tom.task.TaskList;
+import tom.ui.Ui;
+
 public class AddCommand extends Command {
 
     private Task task;
@@ -7,12 +13,12 @@ public class AddCommand extends Command {
     }
 
     @Override
-    void execute(TaskList tasks, Ui ui, Storage storage) {
+    public void execute(TaskList tasks, Ui ui, Storage storage) {
         tasks.add(task);
     }
 
     @Override
-    boolean isExit() {
+    public boolean isExit() {
         return false;
     }
 

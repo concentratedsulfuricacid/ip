@@ -1,3 +1,8 @@
+package tom.command;
+import tom.storage.Storage;
+import tom.task.TaskList;
+import tom.ui.Ui;
+
 public class MarkDoneCommand extends Command {
     private int taskNumber;
 
@@ -6,12 +11,12 @@ public class MarkDoneCommand extends Command {
     }
 
     @Override
-    void execute(TaskList tasks, Ui ui, Storage storage) {
+    public void execute(TaskList tasks, Ui ui, Storage storage) {
          tasks.markDone(taskNumber);
     }
 
     @Override
-    boolean isExit() {
+    public boolean isExit() {
         return false;
     }
     

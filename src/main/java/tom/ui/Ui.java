@@ -1,3 +1,4 @@
+package tom.ui;
 public class Ui {
     public String border = "____________________________________________________________";
     
