@@ -8,13 +8,21 @@ import tom.ui.Ui;
 
 import java.util.ArrayList;
 
+/**
+ * Provides the main application entry point and runtime loop.
+ */
 public class Tom {
     private Storage storage;
     private Ui ui;
     private TaskList items;
+    /** Shared scanner for reading user input. */
     static Scanner scanner = new Scanner(System.in);
 
-
+    /**
+     * Creates a Tom instance that persists tasks to the provided file path.
+     *
+     * @param Filepath File path to the storage file.
+     */
     public Tom(String Filepath) {
         this.storage = new Storage(Filepath);
         this.ui = new Ui();
@@ -26,6 +34,9 @@ public class Tom {
         }
     }
 
+    /**
+     * Runs the command processing loop until an exit command is received.
+     */
     public void run() {
         ui.showWelcomeMessage();
         boolean isExit = false;
@@ -44,6 +55,11 @@ public class Tom {
         }
     }
 
+    /**
+     * Starts the application with a default storage path.
+     *
+     * @param args Command-line arguments (unused).
+     */
     public static void main(String[] args) {
         Tom tom = new Tom("data/tasks.txt");
         tom.run();

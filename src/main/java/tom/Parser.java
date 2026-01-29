@@ -10,7 +10,9 @@ import tom.task.Deadline;
 import tom.task.Event;
 import tom.task.Todo;
 
-
+/**
+ * Parses user input into executable commands.
+ */
 public class Parser {
 
     private enum CommandType {
@@ -25,6 +27,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Returns an add command for a todo parsed from the user input.
+     *
+     * @param message Full user input line.
+     * @return The parsed add command.
+     * @throws TomException If the todo description is missing.
+     */
     public static Command parseTodo(String message) throws TomException {
         String[] parts = message.split(" ", 2);
             String description = parts.length > 1 ? parts[1].trim() : "";
@@ -35,6 +44,13 @@ public class Parser {
             return new AddCommand(todo);
     }
 
+    /**
+     * Returns an add command for a deadline parsed from the user input.
+     *
+     * @param message Full user input line.
+     * @return The parsed add command.
+     * @throws TomException If the deadline input is missing or malformed.
+     */
     public static Command parseDeadline(String message) throws TomException {
         if (!message.contains(" /by ")) {
             throw new InvalidCommandException("The deadline command must include a /by clause.");
@@ -49,6 +65,13 @@ public class Parser {
         return new AddCommand(deadline);
     }
 
+    /**
+     * Returns an add command for an event parsed from the user input.
+     *
+     * @param message Full user input line.
+     * @return The parsed add command.
+     * @throws TomException If the event input is missing or malformed.
+     */
     public static Command parseEvent(String message) throws TomException {
         String[] parts = message.substring(5).split(" /from | /to ");
         if (parts.length < 3) {
@@ -61,6 +84,13 @@ public class Parser {
         return new AddCommand(event);
     }
 
+    /**
+     * Returns the task number parsed from the user input.
+     *
+     * @param message Full user input line.
+     * @return The parsed task number.
+     * @throws TomException If the task number is missing or invalid.
+     */
     private static int parseTaskNumber(String message) throws TomException {
         String[] parts = message.trim().split("\\s+");
         if (parts.length < 2) {
@@ -73,28 +103,67 @@ public class Parser {
         }
     }
 
+    /**
+     * Returns a mark-as-done command parsed from the user input.
+     *
+     * @param message Full user input line.
+     * @return The parsed mark-as-done command.
+     * @throws TomException If the task number is missing or invalid.
+     */
     public static Command parseMarkCommand(String message) throws TomException {
         int taskNumber = parseTaskNumber(message);
         return new MarkDoneCommand(taskNumber);
     }
 
+    /**
+     * Returns an unmark command parsed from the user input.
+     *
+     * @param message Full user input line.
+     * @return The parsed unmark command.
+     * @throws TomException If the task number is missing or invalid.
+     */
     public static Command parseUnmarkCommand(String message) throws TomException {
         int taskNumber = parseTaskNumber(message);
         return new UnmarkDoneCommand(taskNumber);
     }
+
+    /**
+     * Returns a delete command parsed from the user input.
+     *
+     * @param message Full user input line.
+     * @return The parsed delete command.
+     * @throws TomException If the task number is missing or invalid.
+     */
     public static Command parseDeleteCommand(String message) throws TomException {
         int taskNumber = parseTaskNumber(message);
         return new DeleteCommand(taskNumber);
     }
 
+    /**
+     * Returns a list command.
+     *
+     * @return The list command.
+     */
     public static Command parseListCommand() {
         return new ListCommand();
     }
 
+    /**
+     * Returns an exit command.
+     *
+     * @return The exit command.
+     */
     public static Command parseByeCommand() {
         return new ExitCommand();
     }
 
+    /**
+     * Returns the command parsed from the full user input line.
+     *
+     * @param message Full user input line.
+     * @return The parsed command.
+     * @throws TomException If the command cannot be parsed.
+     */
     public static Command parse(String message) throws TomException {
 
         String firstWord = message.trim().split("\\s+")[0].toLowerCase();
