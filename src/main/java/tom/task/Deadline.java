@@ -2,6 +2,7 @@ package tom.task;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+
 /**
  * Represents a task with a due date.
  */
@@ -20,6 +21,11 @@ public class Deadline extends Task {
         this.by = LocalDate.parse(by);
     }
 
+    /**
+     * Returns the due date.
+     *
+     * @return Due date for the deadline.
+     */
     public LocalDate getBy() {
         return by;
     }

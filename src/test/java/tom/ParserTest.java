@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 import tom.command.Command;
 import tom.command.DeleteCommand;
 import tom.command.ExitCommand;
+import tom.command.FindCommand;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -61,5 +62,22 @@ public class ParserTest {
     @Test
     void parseDeadlineMissingByThrows() {
         assertThrows(TomException.class, () -> Parser.parse("deadline submit"));
+    }
+
+    /**
+     * Verifies that parsing a valid find command returns a find command.
+     */
+    @Test
+    void parseFindValidReturnsFindCommand() throws Exception {
+        Command c = Parser.parse("find book");
+        assertTrue(c instanceof FindCommand);
+    }
+
+    /**
+     * Verifies that parsing a find command with no keyword throws.
+     */
+    @Test
+    void parseFindMissingKeywordThrows() {
+        assertThrows(TomException.class, () -> Parser.parse("find"));
     }
 }

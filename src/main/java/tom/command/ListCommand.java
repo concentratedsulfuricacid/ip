@@ -15,7 +15,7 @@ public class ListCommand extends Command {
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         tasks.listItems();
     }
-    
+
     /**
      * Returns whether this command exits the application.
      *

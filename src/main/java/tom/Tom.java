@@ -11,7 +11,7 @@ import tom.ui.Ui;
 /**
  * Provides the main application entry point and runtime loop.
  */
-public class Tom { 
+public class Tom {
     private final Storage storage;
     private final Ui ui;
     private final TaskList items;
@@ -21,7 +21,7 @@ public class Tom {
     /**
      * Creates a Tom instance that persists tasks to the provided file path.
      *
-     * @param Filepath File path to the storage file.
+     * @param filePath File path to the storage file.
      */
     public Tom(String filePath) {
         this.storage = new Storage(filePath);

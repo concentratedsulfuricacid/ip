@@ -1,4 +1,5 @@
 package tom;
+
 /**
  * Represents an exception raised by the Tom application.
  */
@@ -13,4 +14,3 @@ public class TomException extends Exception {
     }
 
 }
-

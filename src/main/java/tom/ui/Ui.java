@@ -1,16 +1,19 @@
 package tom.ui;
+
+import java.util.List;
+
+import tom.task.Task;
+
 /**
  * Provides console output messages for the application.
  */
-import tom.task.Task;
-import java.util.List;
 public class Ui {
     /** Divider line used to frame console output. */
     private static final String BORDER = "____________________________________________________________";
+
     /**
      * Shows the welcome message.
      */
-
     public void showWelcomeMessage() {
         System.out.println(BORDER);
         System.out.println("Hello! I'm Tom");
@@ -113,6 +116,13 @@ public class Ui {
         System.out.println(BORDER);
     }
 
+    /**
+     * Shows the found-tasks message.
+     *
+     * @param count Number of matching tasks.
+     * @param keyword Keyword used for filtering.
+     * @param foundTasks Tasks that match the keyword.
+     */
     public void showFoundTasks(int count, String keyword, List<Task> foundTasks) {
         System.out.println(BORDER);
         System.out.println("Found " + count + " matching tasks in your list:");
@@ -122,6 +132,4 @@ public class Ui {
         }
         System.out.println(BORDER);
     }
-
-
 }
