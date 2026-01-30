@@ -6,12 +6,21 @@ import tom.task.Deadline;
 import tom.task.Task;
 import tom.task.Todo;
 
+<<<<<<< HEAD
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+=======
+/**
+ * Verifies storage encoding and decoding behavior.
+ */
+>>>>>>> branch-A-JavaDoc
 public class StorageTest {
 
+    /**
+     * Verifies that encoding and decoding a todo preserves its display string.
+     */
     @Test
     void encodeDecodeTodoRoundTrip() throws Exception {
         Todo t = new Todo("read book");
@@ -23,6 +32,9 @@ public class StorageTest {
         assertEquals(t.toString(), decoded.toString());
     }
 
+    /**
+     * Verifies that decoding a done deadline applies the done flag.
+     */
     @Test
     void decodeDeadlineDoneFlagApplied() throws Exception {
         String line = "D | 1 | submit report | 2026-01-30";
@@ -32,11 +44,17 @@ public class StorageTest {
         assertTrue(decoded.toString().contains("[X]"));
     }
 
+    /**
+     * Verifies that decoding an invalid line throws an exception.
+     */
     @Test
     void decodeInvalidLineThrows() {
         assertThrows(TomException.class, () -> Storage.decode("nonsense"));
     }
 
+    /**
+     * Verifies that decoding a line with missing parts throws an exception.
+     */
     @Test
     void decodeMissingPartsThrows() {
         assertThrows(TomException.class, () -> Storage.decode("T | 0"));

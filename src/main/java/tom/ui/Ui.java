@@ -1,9 +1,15 @@
 package tom.ui;
-
+/**
+ * Provides console output messages for the application.
+ */
 import tom.task.Task;
 import java.util.List;
 public class Ui {
+    /** Divider line used to frame console output. */
     private static final String BORDER = "____________________________________________________________";
+    /**
+     * Shows the welcome message.
+     */
 
     public void showWelcomeMessage() {
         System.out.println(BORDER);
@@ -12,28 +18,47 @@ public class Ui {
         System.out.println(BORDER);
     }
 
+    /**
+     * Shows the exit message.
+     */
     public void showExitMessage() {
         System.out.println(BORDER);
         System.out.println("Bye. Hope to see you again soon!");
         System.out.println(BORDER);
     }
 
+    /**
+     * Shows an error message.
+     *
+     * @param message Error message to display.
+     */
     public void showErrorMessage(String message) {
         System.out.println(BORDER);
         System.out.println("OOPS!!! " + message);
         System.out.println(BORDER);
     }
 
+    /**
+     * Shows the loading error message.
+     */
     public void showLoadingError() {
         System.out.println(BORDER);
         System.out.println("OOPS!!! There was an error loading your tasks.");
         System.out.println(BORDER);
     }
 
+    /**
+     * Shows the output divider line.
+     */
     public void border() {
         System.out.println(BORDER);
     }
 
+    /**
+     * Shows the mark-done confirmation message.
+     *
+     * @param item Task line to display.
+     */
     public void showMarkDone(String item) {
         System.out.println(BORDER);
         System.out.println("Nice! I've marked this task as done:");
@@ -41,12 +66,20 @@ public class Ui {
         System.out.println(BORDER);
     }
 
+    /**
+     * Shows the invalid task number message.
+     */
     public void showInvalidTaskNumber() {
         System.out.println(BORDER);
         System.out.println("Invalid task number.");
         System.out.println(BORDER);
     }
 
+    /**
+     * Shows the add-task confirmation message.
+     *
+     * @param size Updated number of tasks in the list.
+     */
     public void showAddTask(int size) {
         System.out.println(BORDER);
         System.out.println("Got it. I've added this task:");
@@ -54,6 +87,11 @@ public class Ui {
         System.out.println(BORDER);
     }
 
+    /**
+     * Shows the unmark confirmation message.
+     *
+     * @param item Task line to display.
+     */
     public void showUnmarkDone(String item) {
         System.out.println(BORDER);
         System.out.println("Nice! I've marked this task as undone:");
@@ -61,6 +99,12 @@ public class Ui {
         System.out.println(BORDER);
     }
 
+    /**
+     * Shows the delete-task confirmation message.
+     *
+     * @param item Task line to display.
+     * @param size Updated number of tasks in the list.
+     */
     public void showDeleteTask(String item, int size) {
         System.out.println(BORDER);
         System.out.println("Noted. I've removed this task:");

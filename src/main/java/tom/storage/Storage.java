@@ -12,18 +12,33 @@ import tom.task.Deadline;
 import tom.task.Event;
 import tom.task.Task;
 import tom.task.Todo;
-
+/**
+ * Provides storage utilities for loading and saving tasks.
+ */
 public class Storage {
     private final Path filePath;
 
+    /**
+     * Creates a storage instance using the default data file path.
+     */
     public Storage() {
         this.filePath = Paths.get("data", "tasks.txt");
     }
 
+    /**
+     * Creates a storage instance using the provided file path.
+     *
+     * @param filepath File path to use for storage.
+     */
     public Storage(String filePath) {
         this.filePath = Paths.get(filePath);
     }
 
+    /**
+     * Ensures the storage file and its parent directory exist.
+     *
+     * @throws IOException If the storage directories or file cannot be created.
+     */
     public void ensureStorageExists() throws IOException {
         Files.createDirectories(filePath.getParent());
         if (!Files.exists(filePath)) {
@@ -31,6 +46,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Returns the default storage path under the current working directory.
+     *
+     * @return The default storage path.
+     */
     public static Path getStoragePath() {
         String userDir = System.getProperty("user.dir");
         Path path = Paths.get(userDir, "data", "tasks.txt");
@@ -38,6 +58,13 @@ public class Storage {
         return path;
     }
 
+    /**
+     * Returns the encoded storage line for the provided task.
+     *
+     * @param task Task to encode.
+     * @return Encoded task line.
+     * @throws TomException If the task type is unsupported.
+     */
     public static String encode(Task task) throws TomException {
         if (task instanceof Todo) {
             return "T | " + (task.isDone() ? "1" : "0") + " | " + task.getDescription();
@@ -54,6 +81,13 @@ public class Storage {
         }
     }
 
+    /**
+     * Returns the decoded task represented by the provided storage line.
+     *
+     * @param line Storage line to decode.
+     * @return The decoded task.
+     * @throws TomException If the line cannot be decoded.
+     */
     public static Task decode(String line) throws TomException {
         try {
             String[] parts = line.split(" \\| ");
@@ -91,6 +125,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Writes the provided tasks to storage.
+     *
+     * @param tasks Tasks to persist.
+     */
     public static void updateStorage(List<Task> tasks) {
         try {
             Path filePath = getStoragePath();
@@ -107,6 +146,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Returns the tasks loaded from storage.
+     *
+     * @return List of tasks loaded from storage.
+     * @throws TomException If decoding fails.
+     */
     public List<Task> load() throws TomException {
         List<Task> tasks = new ArrayList<>();
         try {
@@ -128,6 +173,11 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Runs a simple storage path lookup for debugging.
+     *
+     * @param args Command-line arguments (unused).
+     */
     public static void main(String[] args) {
         getStoragePath();
         getStoragePath();
