@@ -1,4 +1,7 @@
 package tom.ui;
+
+import tom.task.Task;
+import java.util.List;
 public class Ui {
     public String border = "____________________________________________________________";
     
@@ -63,6 +66,16 @@ public class Ui {
         System.out.println("Noted. I've removed this task:");
         System.out.println("  " + item);
         System.out.println("Now you have " + size + " tasks in the list.");
+        System.out.println(border);
+    }
+
+    public void showFoundTasks(int count, String keyword, List<Task> foundTasks) {
+        System.out.println(border);
+        System.out.println("Found " + count + " matching tasks in your list:");
+        System.out.println("Here are the tasks matching \"" + keyword + "\":");
+        for (Task task : foundTasks) {
+            System.out.println("  " + task);
+        }
         System.out.println(border);
     }
 
