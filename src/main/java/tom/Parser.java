@@ -14,7 +14,7 @@ import tom.task.Todo;
 public class Parser {
 
     private enum CommandType {
-        LIST, BYE, TODO, DEADLINE, EVENT, MARK, UNMARK, DELETE, INVALID;
+        LIST, BYE, TODO, DEADLINE, EVENT, MARK, UNMARK, DELETE, INVALID, FIND;
 
         public static CommandType fromString(String command) {
             try {
@@ -95,6 +95,15 @@ public class Parser {
         return new ExitCommand();
     }
 
+    public static Command parseFindCommand(String message) throws TomException {
+        String[] parts = message.trim().split("\\s+", 2);
+        if (parts.length < 2 || parts[1].trim().isEmpty()) {
+            throw new InvalidCommandException("Please provide a keyword to find.");
+        }
+        String keyword = parts[1].trim();
+        return new tom.command.FindCommand(keyword);
+    }
+
     public static Command parse(String message) throws TomException {
 
         String firstWord = message.trim().split("\\s+")[0].toLowerCase();
@@ -122,6 +131,8 @@ public class Parser {
                 return parseListCommand();
             case BYE:
                 return parseByeCommand();
+            case FIND:
+                return parseFindCommand(message);
             default:
                 throw new InvalidCommandException("Invalid command.");
         }

@@ -64,13 +64,14 @@ public class TaskList {
         }
     }
 
-    
-
-
-
-
-
-
-
-
+    public List<Task> find(String keyword) {
+        String k = keyword.toLowerCase();
+        List<Task> foundTasks = new ArrayList<Task>();
+        for (Task task : items) {
+            if (task.description.toLowerCase().contains(k)) {
+                foundTasks.add(task);   
+            }
+        }
+        return foundTasks;
+    }
 }
