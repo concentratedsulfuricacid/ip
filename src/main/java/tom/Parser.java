@@ -1,4 +1,5 @@
 package tom;
+
 import tom.command.AddCommand;
 import tom.command.Command;
 import tom.command.DeleteCommand;
@@ -9,7 +10,6 @@ import tom.command.UnmarkDoneCommand;
 import tom.task.Deadline;
 import tom.task.Event;
 import tom.task.Todo;
-
 
 public class Parser {
 
@@ -27,12 +27,12 @@ public class Parser {
 
     public static Command parseTodo(String message) throws TomException {
         String[] parts = message.split(" ", 2);
-            String description = parts.length > 1 ? parts[1].trim() : "";
-            if (description.isEmpty()) {
-                throw new InvalidCommandException("The description of a todo cannot be empty.");
-            }
-            Todo todo = new Todo(description);
-            return new AddCommand(todo);
+        String description = parts.length > 1 ? parts[1].trim() : "";
+        if (description.isEmpty()) {
+            throw new InvalidCommandException("The description of a todo cannot be empty.");
+        }
+        Todo todo = new Todo(description);
+        return new AddCommand(todo);
     }
 
     public static Command parseDeadline(String message) throws TomException {

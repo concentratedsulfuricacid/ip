@@ -1,15 +1,18 @@
 package tom.task;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import tom.storage.Storage;
 import tom.ui.Ui;
+
 public class TaskList {
-    private Ui ui = new Ui();
-    private List<Task> items = new ArrayList<>();
-    
+    private final Ui ui;
+    private final List<Task> items;
+
     public TaskList(List<Task> tasks) {
-        this.items = tasks;
+        this.ui = new Ui();
+        this.items = new ArrayList<>(tasks);
     }
 
     public int size() {
@@ -20,14 +23,14 @@ public class TaskList {
         items.add(task);
         Storage.updateStorage(items);
         ui.showAddTask(items.size());
-    } 
+    }
 
-    public void list_items() {
+    public void listItems() {
         ui.border();
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < items.size(); i++) {
             System.out.println((i + 1) + ". " + items.get(i));
-            }
+        }
         ui.border();
     }
 
@@ -42,7 +45,7 @@ public class TaskList {
         }
     }
 
-    public  void markUndone(int taskNumber) {
+    public void markUndone(int taskNumber) {
         int index = taskNumber - 1;
         if (index >= 0 && index < items.size() && items.get(index) != null) {
             items.get(index).unmarkAsDone();
@@ -63,14 +66,4 @@ public class TaskList {
             ui.showInvalidTaskNumber();
         }
     }
-
-    
-
-
-
-
-
-
-
-
 }
