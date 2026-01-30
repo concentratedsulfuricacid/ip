@@ -1,4 +1,5 @@
 package tom;
+
 /**
  * Represents an exception caused by invalid user commands.
  */
@@ -12,4 +13,3 @@ public class InvalidCommandException extends TomException {
         super(message);
     }
 }
-

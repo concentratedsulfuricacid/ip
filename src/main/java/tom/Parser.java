@@ -4,6 +4,7 @@ import tom.command.AddCommand;
 import tom.command.Command;
 import tom.command.DeleteCommand;
 import tom.command.ExitCommand;
+import tom.command.FindCommand;
 import tom.command.ListCommand;
 import tom.command.MarkDoneCommand;
 import tom.command.UnmarkDoneCommand;
@@ -158,13 +159,20 @@ public class Parser {
         return new ExitCommand();
     }
 
+    /**
+     * Returns a find command parsed from the user input.
+     *
+     * @param message Full user input line.
+     * @return The parsed find command.
+     * @throws TomException If the keyword is missing.
+     */
     public static Command parseFindCommand(String message) throws TomException {
         String[] parts = message.trim().split("\\s+", 2);
         if (parts.length < 2 || parts[1].trim().isEmpty()) {
             throw new InvalidCommandException("Please provide a keyword to find.");
         }
         String keyword = parts[1].trim();
-        return new tom.command.FindCommand(keyword);
+        return new FindCommand(keyword);
     }
 
     /**

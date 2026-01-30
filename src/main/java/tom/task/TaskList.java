@@ -12,12 +12,12 @@ import tom.ui.Ui;
 public class TaskList {
     private final Ui ui;
     private final List<Task> items;
+
     /**
      * Creates a task list backed by the provided task collection.
      *
      * @param tasks Initial tasks.
      */
-
     public TaskList(List<Task> tasks) {
         this.ui = new Ui();
         this.items = new ArrayList<>(tasks);
@@ -76,7 +76,7 @@ public class TaskList {
      *
      * @param taskNumber One-based task number.
      */
-    public  void markUndone(int taskNumber) {
+    public void markUndone(int taskNumber) {
         int index = taskNumber - 1;
         if (index >= 0 && index < items.size() && items.get(index) != null) {
             items.get(index).unmarkAsDone();
@@ -103,12 +103,18 @@ public class TaskList {
         }
     }
 
+    /**
+     * Returns tasks whose descriptions contain the provided keyword.
+     *
+     * @param keyword Keyword to match.
+     * @return List of matching tasks.
+     */
     public List<Task> find(String keyword) {
-        String k = keyword.toLowerCase();
-        List<Task> foundTasks = new ArrayList<Task>();
+        String keywordLowercase = keyword.toLowerCase();
+        List<Task> foundTasks = new ArrayList<>();
         for (Task task : items) {
-            if (task.getDescription().toLowerCase().contains(k)) {
-                foundTasks.add(task);   
+            if (task.getDescription().toLowerCase().contains(keywordLowercase)) {
+                foundTasks.add(task);
             }
         }
         return foundTasks;

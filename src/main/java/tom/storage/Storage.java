@@ -28,7 +28,7 @@ public class Storage {
     /**
      * Creates a storage instance using the provided file path.
      *
-     * @param filepath File path to use for storage.
+     * @param filePath File path to use for storage.
      */
     public Storage(String filePath) {
         this.filePath = Paths.get(filePath);

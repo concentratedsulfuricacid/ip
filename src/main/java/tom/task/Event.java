@@ -2,6 +2,7 @@ package tom.task;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+
 /**
  * Represents a task scheduled between two dates.
  */
@@ -24,10 +25,20 @@ public class Event extends Task {
         this.to = LocalDate.parse(to);
     }
 
+    /**
+     * Returns the start date.
+     *
+     * @return Start date for the event.
+     */
     public LocalDate getFrom() {
         return from;
     }
 
+    /**
+     * Returns the end date.
+     *
+     * @return End date for the event.
+     */
     public LocalDate getTo() {
         return to;
     }

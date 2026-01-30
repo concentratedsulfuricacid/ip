@@ -1,4 +1,5 @@
 package tom.task;
+
 /**
  * Represents a todo task.
  */
@@ -21,7 +22,7 @@ public class Todo extends Task {
     public String toString() {
         return "[T]" + super.toString();
     }
-    
+
     /**
      * Returns whether this todo is equal to another object.
      *

@@ -1,4 +1,5 @@
 package tom.task;
+
 /**
  * Represents a task with a description and completion state.
  */
@@ -13,7 +14,6 @@ public class Task {
      *
      * @param description Task description.
      */
-
     public Task(String description) {
         this.description = description;
         this.isDone = false;
@@ -28,10 +28,20 @@ public class Task {
         return (isDone ? "X" : " ");
     }
 
+    /**
+     * Returns the task description.
+     *
+     * @return Task description.
+     */
     public String getDescription() {
         return description;
     }
 
+    /**
+     * Returns whether the task is marked as done.
+     *
+     * @return True if the task is done.
+     */
     public boolean isDone() {
         return isDone;
     }

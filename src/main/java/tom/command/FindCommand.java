@@ -1,17 +1,18 @@
 package tom.command;
 
+import java.util.List;
+
 import tom.storage.Storage;
+import tom.task.Task;
 import tom.task.TaskList;
 import tom.ui.Ui;
-import java.util.List;
-import tom.task.Task;
 
 /**
  * Finds tasks containing a specific keyword.
  */
 public class FindCommand extends Command {
 
-    private String keyword;
+    private final String keyword;
 
     /**
      * Creates a find command for the provided keyword.
@@ -23,7 +24,7 @@ public class FindCommand extends Command {
     }
 
     /**
-     * Creates a find command for the provided keyword.
+     * Finds tasks that contain the keyword and reports them through the UI.
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
@@ -32,6 +33,11 @@ public class FindCommand extends Command {
         ui.showFoundTasks(count, keyword, found);
     }
 
+    /**
+     * Returns whether this command exits the application.
+     *
+     * @return False because finding tasks does not exit the application.
+     */
     @Override
     public boolean isExit() {
         return false;
