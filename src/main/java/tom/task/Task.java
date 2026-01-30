@@ -1,15 +1,24 @@
 package tom.task;
-public class Task {
-    public String description;
-    public boolean isDone;
 
-    public Task(String description){
+public class Task {
+    private String description;
+    private boolean isDone;
+
+    public Task(String description) {
         this.description = description;
         this.isDone = false;
     }
 
     public String getStatusIcon() {
-        return (isDone ? "X" : " "); 
+        return (isDone ? "X" : " ");
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public boolean isDone() {
+        return isDone;
     }
 
     public void markAsDone() {
@@ -36,5 +45,5 @@ public class Task {
         Task other = (Task) obj;
         return description.equals(other.description) && isDone == other.isDone;
     }
-    
+
 }

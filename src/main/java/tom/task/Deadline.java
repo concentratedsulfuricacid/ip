@@ -1,12 +1,18 @@
 package tom.task;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+
 public class Deadline extends Task {
-    public LocalDate by;
+    private final LocalDate by;
 
     public Deadline(String description, String by) {
         super(description);
         this.by = LocalDate.parse(by);
+    }
+
+    public LocalDate getBy() {
+        return by;
     }
 
     @Override
@@ -18,7 +24,7 @@ public class Deadline extends Task {
     public boolean equals(Object obj) {
         if (this == obj) {
             return true;
-        } 
+        }
         if (obj == null || getClass() != obj.getClass()) {
             return false;
         }

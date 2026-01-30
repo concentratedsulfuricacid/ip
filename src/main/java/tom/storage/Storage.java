@@ -1,8 +1,10 @@
 package tom.storage;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 
 import tom.TomException;
@@ -10,22 +12,22 @@ import tom.task.Deadline;
 import tom.task.Event;
 import tom.task.Task;
 import tom.task.Todo;
+
 public class Storage {
-    private Path FILE_PATH;
-    // private static Path FILE_PATH = Paths.get("data", "tasks.txt");
+    private final Path filePath;
 
     public Storage() {
-        this.FILE_PATH = Paths.get("data", "tasks.txt");
+        this.filePath = Paths.get("data", "tasks.txt");
     }
 
-    public Storage(String filepath) {
-        this.FILE_PATH = Paths.get(filepath);
+    public Storage(String filePath) {
+        this.filePath = Paths.get(filePath);
     }
 
-    public  void ensureStorageExists() throws IOException {
-        Files.createDirectories(FILE_PATH.getParent());
-        if (!Files.exists(FILE_PATH)) {
-            Files.createFile(FILE_PATH);
+    public void ensureStorageExists() throws IOException {
+        Files.createDirectories(filePath.getParent());
+        if (!Files.exists(filePath)) {
+            Files.createFile(filePath);
         }
     }
 
@@ -38,13 +40,15 @@ public class Storage {
 
     public static String encode(Task task) throws TomException {
         if (task instanceof Todo) {
-            return "T | " + (task.isDone ? "1" : "0") + " | " + task.description;
+            return "T | " + (task.isDone() ? "1" : "0") + " | " + task.getDescription();
         } else if (task instanceof Deadline) {
             Deadline deadline = (Deadline) task;
-            return "D | " + (task.isDone ? "1" : "0") + " | " + task.description + " | " + deadline.by.toString();
+            return "D | " + (task.isDone() ? "1" : "0") + " | " + task.getDescription()
+                    + " | " + deadline.getBy();
         } else if (task instanceof Event) {
             Event event = (Event) task;
-            return "E | " + (task.isDone ? "1" : "0") + " | " + task.description + " | " + event.from + " | " + event.to.toString(); 
+            return "E | " + (task.isDone() ? "1" : "0") + " | " + task.getDescription()
+                    + " | " + event.getFrom() + " | " + event.getTo();
         } else {
             throw new TomException("Unknown Task Type");
         }
@@ -90,24 +94,23 @@ public class Storage {
     public static void updateStorage(List<Task> tasks) {
         try {
             Path filePath = getStoragePath();
-            List<String> lines = new java.util.ArrayList<>();
+            List<String> lines = new ArrayList<>();
             for (Task task : tasks) {
                 lines.add(encode(task));
             }
             Files.write(filePath, lines);
             // System.out.println("Storage updated successfully.");
-        } catch (java.io.IOException e) {
+        } catch (IOException e) {
             System.out.println("Error updating storage: " + e.getMessage());
         } catch (TomException e) {
             System.out.println("Error encoding tasks: " + e.getMessage());
         }
     }
 
-    public  List<Task> load() throws TomException {
-        List<Task> tasks = new java.util.ArrayList<>();
+    public List<Task> load() throws TomException {
+        List<Task> tasks = new ArrayList<>();
         try {
             ensureStorageExists();
-            Path filePath = FILE_PATH;
             List<String> lines = Files.readAllLines(filePath);
             tasks.addAll(lines.stream().map(line -> {
                 try {
@@ -118,8 +121,8 @@ public class Storage {
                     return null;
                 }
             }).filter(task -> task != null).toList());
-            
-        } catch (java.io.IOException e) {
+
+        } catch (IOException e) {
             System.out.println("Error loading storage: " + e.getMessage());
         }
         return tasks;

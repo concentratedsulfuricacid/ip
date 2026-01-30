@@ -1,4 +1,5 @@
 package tom.task;
+
 public class Todo extends Task {
     public Todo(String description) {
         super(description);
@@ -8,7 +9,7 @@ public class Todo extends Task {
     public String toString() {
         return "[T]" + super.toString();
     }
-    
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -18,6 +19,6 @@ public class Todo extends Task {
             return false;
         }
         Todo other = (Todo) obj;
-        return super.equals(obj) && description.equals(other.description);
+        return super.equals(obj) && getDescription().equals(other.getDescription());
     }
 }
