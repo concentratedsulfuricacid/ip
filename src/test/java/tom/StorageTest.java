@@ -6,16 +6,13 @@ import tom.task.Deadline;
 import tom.task.Task;
 import tom.task.Todo;
 
-<<<<<<< HEAD
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-=======
 /**
  * Verifies storage encoding and decoding behavior.
  */
->>>>>>> branch-A-JavaDoc
 public class StorageTest {
 
     /**
