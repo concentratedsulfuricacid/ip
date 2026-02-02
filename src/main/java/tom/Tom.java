@@ -56,6 +56,16 @@ public class Tom {
         }
     }
 
+    public String getResponse(String input) {
+        try {
+            Command c = Parser.parse(input);
+            return c.execute(items, ui, storage);
+        } catch (TomException e) {
+            return e.getMessage();
+        }
+
+    }
+
     /**
      * Starts the application with a default storage path.
      *
@@ -65,4 +75,6 @@ public class Tom {
         Tom tom = new Tom("data/tasks.txt");
         tom.run();
     }
+    
+    
 }

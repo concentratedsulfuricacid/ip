@@ -23,8 +23,8 @@ public class UnmarkDoneCommand extends Command {
      * Marks the specified task as not done.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        tasks.markUndone(taskNumber);
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        return tasks.markUndone(taskNumber);
     }
 
     /**

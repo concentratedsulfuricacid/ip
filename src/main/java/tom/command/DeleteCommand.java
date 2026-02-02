@@ -24,10 +24,10 @@ public class DeleteCommand extends Command {
      * Deletes the specified task from the task list.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        tasks.delete(taskNumber);
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        return tasks.delete(taskNumber);
     }
-
+    
     /**
      * Returns whether this command exits the application.
      *

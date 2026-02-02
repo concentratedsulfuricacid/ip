@@ -15,7 +15,7 @@ public abstract class Command {
      * @param ui UI used to display feedback.
      * @param storage Storage used for persistence.
      */
-    public abstract void execute(TaskList tasks, Ui ui, Storage storage);
+    public abstract String execute(TaskList tasks, Ui ui, Storage storage);
 
     /**
      * Returns whether this command signals application termination.

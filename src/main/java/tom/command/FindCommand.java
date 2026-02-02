@@ -27,10 +27,10 @@ public class FindCommand extends Command {
      * Finds tasks that contain the keyword and reports them through the UI.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         List<Task> found = tasks.find(keyword);
         int count = found.size();
-        ui.showFoundTasks(count, keyword, found);
+        return ui.showFoundTasks(count, keyword, found);
     }
 
     /**
