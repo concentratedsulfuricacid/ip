@@ -66,6 +66,10 @@ public class Tom {
 
     }
 
+    public String getWelcomeMessage() {
+        return ui.showWelcomeMessage();
+    }
+
     /**
      * Starts the application with a default storage path.
      *
@@ -75,6 +79,8 @@ public class Tom {
         Tom tom = new Tom("data/tasks.txt");
         tom.run();
     }
+
+    
     
     
 }
