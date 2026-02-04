@@ -13,8 +13,8 @@ public class ExitCommand extends Command {
      * Shows the exit message.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.showExitMessage();
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        return ui.showExitMessage();
     }
 
     /**

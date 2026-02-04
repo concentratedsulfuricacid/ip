@@ -26,10 +26,11 @@ public class FindCommandTest {
         private List<Task> tasks;
 
         @Override
-        public void showFoundTasks(int count, String keyword, List<Task> foundTasks) {
+        public String showFoundTasks(int count, String keyword, List<Task> foundTasks) {
             this.count = count;
             this.keyword = keyword;
             this.tasks = new ArrayList<>(foundTasks);
+            return "Found " + count + " tasks with keyword '" + keyword + "'";
         }
     }
 

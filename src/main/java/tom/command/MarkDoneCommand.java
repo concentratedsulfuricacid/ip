@@ -23,8 +23,8 @@ public class MarkDoneCommand extends Command {
      * Marks the specified task as done.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-         tasks.markDone(taskNumber);
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+         return tasks.markDone(taskNumber);
     }
 
     /**

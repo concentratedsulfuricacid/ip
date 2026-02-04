@@ -12,8 +12,8 @@ public class ListCommand extends Command {
      * Lists the current tasks.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        tasks.listItems();
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        return tasks.listItems();
     }
 
     /**

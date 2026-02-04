@@ -37,37 +37,38 @@ public class TaskList {
      *
      * @param task Task to add.
      */
-    public void add(Task task) {
+    public String add(Task task) {
         items.add(task);
         Storage.updateStorage(items);
-        ui.showAddTask(items.size());
+        return ui.showAddTask(items.size());
     }
 
     /**
      * Lists all tasks to the console.
      */
-    public void listItems() {
-        ui.border();
-        System.out.println("Here are the tasks in your list:");
+    public String listItems() {
+        StringBuilder output = new StringBuilder();
+        output.append(ui.border()).append("\nHere are the tasks in your list:\n");
         for (int i = 0; i < items.size(); i++) {
-            System.out.println((i + 1) + ". " + items.get(i));
+            output.append((i + 1)).append(". ").append(items.get(i)).append("\n");
         }
-        ui.border();
+        return output.toString();
     }
+        
 
     /**
      * Marks the specified task as done.
      *
      * @param taskNumber One-based task number.
      */
-    public void markDone(int taskNumber) {
+    public String markDone(int taskNumber) {
         int index = taskNumber - 1;
         if (index >= 0 && index < items.size() && items.get(index) != null) {
             items.get(index).markAsDone();
             Storage.updateStorage(items);
-            ui.showMarkDone(items.get(index).toString());
+            return ui.showMarkDone(items.get(index).toString());
         } else {
-            ui.showInvalidTaskNumber();
+            return ui.showInvalidTaskNumber();
         }
     }
 
@@ -76,14 +77,14 @@ public class TaskList {
      *
      * @param taskNumber One-based task number.
      */
-    public void markUndone(int taskNumber) {
+    public String markUndone(int taskNumber) {
         int index = taskNumber - 1;
         if (index >= 0 && index < items.size() && items.get(index) != null) {
             items.get(index).unmarkAsDone();
             Storage.updateStorage(items);
-            ui.showUnmarkDone(items.get(index).toString());
+            return ui.showUnmarkDone(items.get(index).toString());
         } else {
-            ui.showInvalidTaskNumber();
+            return ui.showInvalidTaskNumber();
         }
     }
 
@@ -92,14 +93,14 @@ public class TaskList {
      *
      * @param taskNumber One-based task number.
      */
-    public void delete(int taskNumber) {
+    public String delete(int taskNumber) {
         int index = taskNumber - 1;
         if (index >= 0 && index < items.size() && items.get(index) != null) {
             Task removedTask = items.remove(index);
             Storage.updateStorage(items);
-            ui.showDeleteTask(removedTask.toString(), items.size());
+            return ui.showDeleteTask(removedTask.toString(), items.size());
         } else {
-            ui.showInvalidTaskNumber();
+            return ui.showInvalidTaskNumber();
         }
     }
 
