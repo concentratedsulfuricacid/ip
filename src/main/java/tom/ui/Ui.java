@@ -89,7 +89,7 @@ public class Ui {
      * @param size Updated number of tasks in the list.
      */
     public String showDeleteTask(String item, int size) {
-        return BORDER + "\nNoted. I've removed this task:\n  " + item + "\nNow you have " + size + " tasks in the list.\n" + BORDER;
+        return "\nNoted. I've removed this task:\n  " + item + "\nNow you have " + size + " tasks in the list.\n";
     }
 
     /**

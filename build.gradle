@@ -2,6 +2,19 @@ plugins {
     id 'java'
     id 'application'
     id 'com.github.johnrengelman.shadow' version '7.1.2'
+    id 'checkstyle'
+}
+
+checkstyle {
+    toolVersion = '10.12.3'
+    configFile = file('config/checkstyle/checkstyle.xml')
+    ignoreFailures = true
+    showViolations = true
+}
+
+tasks.named('check') {
+    dependsOn tasks.named('checkstyleMain')
+    dependsOn tasks.named('checkstyleTest')
 }
 
 repositories {
