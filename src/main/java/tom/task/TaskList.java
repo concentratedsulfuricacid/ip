@@ -1,6 +1,7 @@
 package tom.task;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 import tom.storage.Storage;
@@ -58,6 +59,17 @@ public class TaskList {
             output.append((i + 1)).append(". ").append(items.get(i)).append("\n");
         }
         return output.toString();
+    }
+
+    /**
+     * Sorts tasks by description (case-insensitive) and persists the update.
+     *
+     * @return Display string of sorted tasks.
+     */
+    public String sortByDescription() {
+        items.sort(Comparator.comparing(task -> task.getDescription().toLowerCase()));
+        Storage.updateStorage(items);
+        return ui.showSortedTasks(items);
     }
         
 

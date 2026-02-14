@@ -7,6 +7,7 @@ import tom.command.ExitCommand;
 import tom.command.FindCommand;
 import tom.command.ListCommand;
 import tom.command.MarkDoneCommand;
+import tom.command.SortCommand;
 import tom.command.UnmarkDoneCommand;
 import tom.task.Deadline;
 import tom.task.Event;
@@ -18,7 +19,7 @@ import tom.task.Todo;
 public class Parser {
 
     private enum CommandType {
-        LIST, BYE, TODO, DEADLINE, EVENT, MARK, UNMARK, DELETE, INVALID, FIND;
+        LIST, BYE, TODO, DEADLINE, EVENT, MARK, UNMARK, DELETE, INVALID, FIND, SORT;
 
         public static CommandType fromString(String command) {
             try {
@@ -221,6 +222,8 @@ public class Parser {
                 return parseByeCommand();
             case FIND:
                 return parseFindCommand(message);
+            case SORT:
+                return new SortCommand();
             default:
                 throw new InvalidCommandException("Invalid command.");
         }

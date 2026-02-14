@@ -109,4 +109,19 @@ public class Ui {
         output.append(BORDER);
         return output.toString();
     }
+
+    /**
+     * Shows the sorted-tasks message.
+     *
+     * @param tasks Sorted tasks to display.
+     */
+    public String showSortedTasks(List<Task> tasks) {
+        StringBuilder output = new StringBuilder();
+        output.append(BORDER).append("\nHere are the tasks sorted by description:\n");
+        for (int i = 0; i < tasks.size(); i++) {
+            output.append((i + 1)).append(". ").append(tasks.get(i)).append("\n");
+        }
+        output.append(BORDER);
+        return output.toString();
+    }
 }
