@@ -40,18 +40,22 @@ public class Tom {
      * Runs the command processing loop until an exit command is received.
      */
     public void run() {
-        ui.showWelcomeMessage();
+        System.out.println(ui.showWelcomeMessage());
         boolean isExit = false;
         while (!isExit) {
             try {
                 String message = SCANNER.nextLine().trim();
                 Command c = Parser.parse(message);
-                c.execute(items, ui, storage);
+                String response = c.execute(items, ui, storage);
+                System.out.println(response);
                 isExit = c.isExit();
             } catch (TomException e) {
                 System.out.println(e.getMessage());
             } finally {
-                ui.border();
+                String border = ui.border();
+                if (!border.isEmpty()) {
+                    System.out.println(border);
+                }
             }
         }
     }
