@@ -31,6 +31,7 @@ public class Storage {
      * @param filePath File path to use for storage.
      */
     public Storage(String filePath) {
+        assert filePath != null : "filePath should not be null";
         this.filePath = Paths.get(filePath);
     }
 
@@ -66,6 +67,8 @@ public class Storage {
      * @throws TomException If the task type is unsupported.
      */
     public static String encode(Task task) throws TomException {
+        assert task != null : "task should not be null";
+        assert task.getDescription() != null : "task description should not be null";
         if (task instanceof Todo) {
             return "T | " + (task.isDone() ? "1" : "0") + " | " + task.getDescription();
         } else if (task instanceof Deadline) {
@@ -89,6 +92,7 @@ public class Storage {
      * @throws TomException If the line cannot be decoded.
      */
     public static Task decode(String line) throws TomException {
+        assert line != null : "line should not be null";
         try {
             String[] parts = line.split(" \\| ");
             String type = parts[0];
@@ -131,10 +135,12 @@ public class Storage {
      * @param tasks Tasks to persist.
      */
     public static void updateStorage(List<Task> tasks) {
+        assert tasks != null : "tasks should not be null";
         try {
             Path filePath = getStoragePath();
             List<String> lines = new ArrayList<>();
             for (Task task : tasks) {
+                assert task != null : "tasks should not contain null entries";
                 lines.add(encode(task));
             }
             Files.write(filePath, lines);

@@ -19,6 +19,10 @@ public class TaskList {
      * @param tasks Initial tasks.
      */
     public TaskList(List<Task> tasks) {
+        assert tasks != null : "tasks should not be null";
+        for (Task task : tasks) {
+            assert task != null : "TaskList cannot contain null tasks";
+        }
         this.ui = new Ui();
         this.items = new ArrayList<>(tasks);
     }
@@ -38,6 +42,7 @@ public class TaskList {
      * @param task Task to add.
      */
     public String add(Task task) {
+        assert task != null : "task should not be null";
         items.add(task);
         Storage.updateStorage(items);
         return ui.showAddTask(items.size());
@@ -63,10 +68,15 @@ public class TaskList {
      */
     public String markDone(int taskNumber) {
         int index = taskNumber - 1;
-        if (index >= 0 && index < items.size() && items.get(index) != null) {
-            items.get(index).markAsDone();
+        if (index >= 0 && index < items.size()) {
+            Task task = items.get(index);
+            assert task != null : "TaskList should not contain null tasks";
+            if (task == null) {
+                return ui.showInvalidTaskNumber();
+            }
+            task.markAsDone();
             Storage.updateStorage(items);
-            return ui.showMarkDone(items.get(index).toString());
+            return ui.showMarkDone(task.toString());
         } else {
             return ui.showInvalidTaskNumber();
         }
@@ -79,10 +89,15 @@ public class TaskList {
      */
     public String markUndone(int taskNumber) {
         int index = taskNumber - 1;
-        if (index >= 0 && index < items.size() && items.get(index) != null) {
-            items.get(index).unmarkAsDone();
+        if (index >= 0 && index < items.size()) {
+            Task task = items.get(index);
+            assert task != null : "TaskList should not contain null tasks";
+            if (task == null) {
+                return ui.showInvalidTaskNumber();
+            }
+            task.unmarkAsDone();
             Storage.updateStorage(items);
-            return ui.showUnmarkDone(items.get(index).toString());
+            return ui.showUnmarkDone(task.toString());
         } else {
             return ui.showInvalidTaskNumber();
         }
@@ -95,8 +110,13 @@ public class TaskList {
      */
     public String delete(int taskNumber) {
         int index = taskNumber - 1;
-        if (index >= 0 && index < items.size() && items.get(index) != null) {
-            Task removedTask = items.remove(index);
+        if (index >= 0 && index < items.size()) {
+            Task removedTask = items.get(index);
+            assert removedTask != null : "TaskList should not contain null tasks";
+            if (removedTask == null) {
+                return ui.showInvalidTaskNumber();
+            }
+            items.remove(index);
             Storage.updateStorage(items);
             return ui.showDeleteTask(removedTask.toString(), items.size());
         } else {
@@ -111,6 +131,7 @@ public class TaskList {
      * @return List of matching tasks.
      */
     public List<Task> find(String keyword) {
+        assert keyword != null : "keyword should not be null";
         String keywordLowercase = keyword.toLowerCase();
         List<Task> foundTasks = new ArrayList<>();
         for (Task task : items) {

@@ -37,6 +37,8 @@ public class Parser {
      * @throws TomException If the todo description is missing.
      */
     public static Command parseTodo(String message) throws TomException {
+        assert message != null : "message should not be null";
+        assert message.startsWith("todo") : "parseTodo expects input starting with 'todo'";
         String[] parts = message.split(" ", 2);
         String description = parts.length > 1 ? parts[1].trim() : "";
         if (description.isEmpty()) {
@@ -54,6 +56,8 @@ public class Parser {
      * @throws TomException If the deadline input is missing or malformed.
      */
     public static Command parseDeadline(String message) throws TomException {
+        assert message != null : "message should not be null";
+        assert message.startsWith("deadline") : "parseDeadline expects input starting with 'deadline'";
         if (!message.contains(" /by ")) {
             throw new InvalidCommandException("The deadline command must include a /by clause.");
         }
@@ -75,6 +79,8 @@ public class Parser {
      * @throws TomException If the event input is missing or malformed.
      */
     public static Command parseEvent(String message) throws TomException {
+        assert message != null : "message should not be null";
+        assert message.startsWith("event") : "parseEvent expects input starting with 'event'";
         String[] parts = message.substring(5).split(" /from | /to ");
         if (parts.length < 3) {
             throw new InvalidCommandException("The event command must include /from and /to clauses.");
@@ -94,6 +100,7 @@ public class Parser {
      * @throws TomException If the task number is missing or invalid.
      */
     private static int parseTaskNumber(String message) throws TomException {
+        assert message != null : "message should not be null";
         String[] parts = message.trim().split("\\s+");
         if (parts.length < 2) {
             throw new InvalidCommandException("Please enter a valid task number.");
@@ -167,6 +174,8 @@ public class Parser {
      * @throws TomException If the keyword is missing.
      */
     public static Command parseFindCommand(String message) throws TomException {
+        assert message != null : "message should not be null";
+        assert message.startsWith("find") : "parseFindCommand expects input starting with 'find'";
         String[] parts = message.trim().split("\\s+", 2);
         if (parts.length < 2 || parts[1].trim().isEmpty()) {
             throw new InvalidCommandException("Please provide a keyword to find.");
@@ -183,6 +192,7 @@ public class Parser {
      * @throws TomException If the command cannot be parsed.
      */
     public static Command parse(String message) throws TomException {
+        assert message != null : "message should not be null";
 
         String firstWord = message.trim().split("\\s+")[0].toLowerCase();
 
