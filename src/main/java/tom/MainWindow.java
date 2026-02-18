@@ -42,10 +42,12 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        String response = tom.getResponse(input);
+        TomResponse response = tom.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getTomDialog(response, dukeImage)
+                response.isError()
+                        ? DialogBox.getErrorDialog(response.getMessage(), dukeImage)
+                        : DialogBox.getTomDialog(response.getMessage(), dukeImage)
         );
         userInput.clear();
     }
@@ -60,4 +62,3 @@ public class MainWindow extends AnchorPane {
         );
     }
 }
-

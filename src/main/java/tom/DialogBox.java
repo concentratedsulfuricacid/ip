@@ -13,6 +13,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.shape.Circle;
 
 /**
  * Represents a dialog box consisting of an ImageView to represent the speaker's face
@@ -36,6 +37,10 @@ public class DialogBox extends HBox {
 
         dialog.setText(text);
         displayPicture.setImage(img);
+        dialog.setMinWidth(0);
+        dialog.maxWidthProperty().bind(widthProperty().multiply(0.72));
+        displayPicture.setSmooth(true);
+        applyAvatarClip();
     }
 
     /**
@@ -48,15 +53,46 @@ public class DialogBox extends HBox {
         setAlignment(Pos.TOP_LEFT);
     }
 
+    private void applyAvatarClip() {
+        double radius = Math.min(displayPicture.getFitWidth(), displayPicture.getFitHeight()) / 2.0;
+        if (radius <= 0) {
+            return;
+        }
+        displayPicture.setClip(new Circle(radius, radius, radius));
+    }
+
+    private void applyUserStyle() {
+        dialog.getStyleClass().add("user");
+        displayPicture.setManaged(false);
+        displayPicture.setVisible(false);
+    }
+
+    private void applyBotStyle() {
+        dialog.getStyleClass().add("bot");
+    }
+
+    private void applyErrorStyle() {
+        dialog.getStyleClass().add("error");
+    }
+
     public static DialogBox getUserDialog(String text, Image img) {
-        return new DialogBox(text, img);
+        var db = new DialogBox(text, img);
+        db.applyUserStyle();
+        return db;
     }
 
     public static DialogBox getTomDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();
+        db.applyBotStyle();
+        return db;
+    }
+
+    public static DialogBox getErrorDialog(String text, Image img) {
+        var db = new DialogBox(text, img);
+        db.flip();
+        db.applyBotStyle();
+        db.applyErrorStyle();
         return db;
     }
 }
-
-

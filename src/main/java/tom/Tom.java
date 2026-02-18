@@ -60,12 +60,12 @@ public class Tom {
         }
     }
 
-    public String getResponse(String input) {
+    public TomResponse getResponse(String input) {
         try {
             Command c = Parser.parse(input);
-            return c.execute(items, ui, storage);
+            return new TomResponse(c.execute(items, ui, storage), false);
         } catch (TomException e) {
-            return e.getMessage();
+            return new TomResponse(e.getMessage(), true);
         }
 
     }
