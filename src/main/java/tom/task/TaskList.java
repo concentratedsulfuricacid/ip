@@ -71,7 +71,7 @@ public class TaskList {
         Storage.updateStorage(items);
         return ui.showSortedTasks(items);
     }
-        
+
 
     /**
      * Marks the specified task as done.

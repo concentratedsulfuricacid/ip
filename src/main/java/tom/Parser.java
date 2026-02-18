@@ -204,28 +204,28 @@ public class Parser {
         CommandType type = CommandType.fromString(firstWord);
 
         switch (type) {
-            case TODO:
-                return parseTodo(message);
-            case DEADLINE:
-                return parseDeadline(message);
-            case EVENT:
-                return parseEvent(message);
-            case MARK:
-                return parseMarkCommand(message);
-            case UNMARK:
-                return parseUnmarkCommand(message);
-            case DELETE:
-                return parseDeleteCommand(message);
-            case LIST:
-                return parseListCommand();
-            case BYE:
-                return parseByeCommand();
-            case FIND:
-                return parseFindCommand(message);
-            case SORT:
-                return new SortCommand();
-            default:
-                throw new InvalidCommandException("Invalid command.");
+        case TODO:
+            return parseTodo(message);
+        case DEADLINE:
+            return parseDeadline(message);
+        case EVENT:
+            return parseEvent(message);
+        case MARK:
+            return parseMarkCommand(message);
+        case UNMARK:
+            return parseUnmarkCommand(message);
+        case DELETE:
+            return parseDeleteCommand(message);
+        case LIST:
+            return parseListCommand();
+        case BYE:
+            return parseByeCommand();
+        case FIND:
+            return parseFindCommand(message);
+        case SORT:
+            return new SortCommand();
+        default:
+            throw new InvalidCommandException("Invalid command.");
         }
     }
 }

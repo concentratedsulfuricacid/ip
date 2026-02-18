@@ -100,29 +100,29 @@ public class Storage {
             String description = parts[2];
 
             switch (type) {
-                case "T":
-                    Todo todo = new Todo(description);
-                    if (isDone) {
-                        todo.markAsDone();
-                    }
-                    return todo;
-                case "D":
-                    String by = parts[3];
-                    Deadline deadline = new Deadline(description, by);
-                    if (isDone) {
-                        deadline.markAsDone();
-                    }
-                    return deadline;
-                case "E":
-                    String from = parts[3];
-                    String to = parts[4];
-                    Event event = new Event(description, from, to);
-                    if (isDone) {
-                        event.markAsDone();
-                    }
-                    return event;
-                default:
-                    throw new TomException("Unknown Task Type");
+            case "T":
+                Todo todo = new Todo(description);
+                if (isDone) {
+                    todo.markAsDone();
+                }
+                return todo;
+            case "D":
+                String by = parts[3];
+                Deadline deadline = new Deadline(description, by);
+                if (isDone) {
+                    deadline.markAsDone();
+                }
+                return deadline;
+            case "E":
+                String from = parts[3];
+                String to = parts[4];
+                Event event = new Event(description, from, to);
+                if (isDone) {
+                    event.markAsDone();
+                }
+                return event;
+            default:
+                throw new TomException("Unknown Task Type");
             }
         } catch (Exception e) {
             throw new TomException("Error decoding task: " + e.getMessage());

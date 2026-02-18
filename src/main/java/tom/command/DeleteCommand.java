@@ -27,7 +27,7 @@ public class DeleteCommand extends Command {
     public String execute(TaskList tasks, Ui ui, Storage storage) {
         return tasks.delete(taskNumber);
     }
-    
+
     /**
      * Returns whether this command exits the application.
      *

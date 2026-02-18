@@ -1,5 +1,9 @@
 package tom;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,10 +15,6 @@ import tom.task.Task;
 import tom.task.TaskList;
 import tom.task.Todo;
 import tom.ui.Ui;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * Verifies a basic user flow across parsing, commands, and task updates.

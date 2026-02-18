@@ -7,6 +7,12 @@ public class TomResponse {
     private final String message;
     private final boolean isError;
 
+    /**
+     * Creates a response with a message and error flag.
+     *
+     * @param message Response message text.
+     * @param isError True if the response represents an error.
+     */
     public TomResponse(String message, boolean isError) {
         this.message = message;
         this.isError = isError;

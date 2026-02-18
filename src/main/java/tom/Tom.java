@@ -12,11 +12,11 @@ import tom.ui.Ui;
  * Provides the main application entry point and runtime loop.
  */
 public class Tom {
+    /** Shared scanner for reading user input. */
+    private static final Scanner SCANNER = new Scanner(System.in);
     private final Storage storage;
     private final Ui ui;
     private final TaskList items;
-    /** Shared scanner for reading user input. */
-    private static final Scanner SCANNER = new Scanner(System.in);
 
     /**
      * Creates a Tom instance that persists tasks to the provided file path.
@@ -83,8 +83,4 @@ public class Tom {
         Tom tom = new Tom("data/tasks.txt");
         tom.run();
     }
-
-    
-    
-    
 }

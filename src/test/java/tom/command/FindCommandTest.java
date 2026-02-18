@@ -1,5 +1,7 @@
 package tom.command;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,8 +12,6 @@ import tom.task.Task;
 import tom.task.TaskList;
 import tom.task.Todo;
 import tom.ui.Ui;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Verifies find command behavior.

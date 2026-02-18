@@ -1,13 +1,14 @@
 package tom;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import org.junit.jupiter.api.Test;
+
 import tom.command.Command;
 import tom.command.DeleteCommand;
 import tom.command.ExitCommand;
 import tom.command.FindCommand;
-
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * Verifies parser command handling.
