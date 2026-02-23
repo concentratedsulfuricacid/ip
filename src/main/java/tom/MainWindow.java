@@ -50,6 +50,16 @@ public class MainWindow extends AnchorPane {
                         : DialogBox.getTomDialog(response.getMessage(), dukeImage)
         );
         userInput.clear();
+        if (response.isExit()) {
+            closeWindow();
+        }
+    }
+
+    private void closeWindow() {
+        if (userInput.getScene() == null) {
+            return;
+        }
+        userInput.getScene().getWindow().hide();
     }
 
     /**

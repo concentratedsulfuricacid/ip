@@ -63,9 +63,9 @@ public class Tom {
     public TomResponse getResponse(String input) {
         try {
             Command c = Parser.parse(input);
-            return new TomResponse(c.execute(items, ui, storage), false);
+            return new TomResponse(c.execute(items, ui, storage), false, c.isExit());
         } catch (TomException e) {
-            return new TomResponse(e.getMessage(), true);
+            return new TomResponse(e.getMessage(), true, false);
         }
 
     }
